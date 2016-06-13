@@ -10,11 +10,11 @@
 		0DF1C0459984B852F7928CDC /* Pods_MGRemote.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 048AF62A56F3003D444A141C /* Pods_MGRemote.framework */; };
 		692D712E0031C1C0E023C565 /* Pods_MGRemoteTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD2FFF12E1AD3225B98C0400 /* Pods_MGRemoteTests.framework */; };
 		C0AC35151D0B84FB000A63CC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AC35141D0B84FB000A63CC /* AppDelegate.swift */; };
-		C0AC35171D0B84FB000A63CC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AC35161D0B84FB000A63CC /* ViewController.swift */; };
 		C0AC351A1D0B84FB000A63CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0AC35181D0B84FB000A63CC /* Main.storyboard */; };
 		C0AC351C1D0B84FB000A63CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0AC351B1D0B84FB000A63CC /* Assets.xcassets */; };
 		C0AC351F1D0B84FB000A63CC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0AC351D1D0B84FB000A63CC /* LaunchScreen.storyboard */; };
 		C0AC352A1D0B84FB000A63CC /* MGRemoteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AC35291D0B84FB000A63CC /* MGRemoteTests.swift */; };
+		C0FCC17D1D0F4C1900BA624F /* SimulatorStatusVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FCC17C1D0F4C1900BA624F /* SimulatorStatusVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +36,6 @@
 		AD2FFF12E1AD3225B98C0400 /* Pods_MGRemoteTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MGRemoteTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0AC35111D0B84FB000A63CC /* MGRemote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MGRemote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0AC35141D0B84FB000A63CC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C0AC35161D0B84FB000A63CC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C0AC35191D0B84FB000A63CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C0AC351B1D0B84FB000A63CC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C0AC351E1D0B84FB000A63CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -44,6 +43,8 @@
 		C0AC35251D0B84FB000A63CC /* MGRemoteTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MGRemoteTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0AC35291D0B84FB000A63CC /* MGRemoteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MGRemoteTests.swift; sourceTree = "<group>"; };
 		C0AC352B1D0B84FB000A63CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C0FCC17C1D0F4C1900BA624F /* SimulatorStatusVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimulatorStatusVC.swift; sourceTree = "<group>"; };
+		C0FCC17E1D0F600900BA624F /* MGRemote-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MGRemote-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,12 +110,13 @@
 		C0AC35131D0B84FB000A63CC /* MGRemote */ = {
 			isa = PBXGroup;
 			children = (
+				C0FCC17B1D0F375600BA624F /* View Controllers */,
 				C0AC35141D0B84FB000A63CC /* AppDelegate.swift */,
-				C0AC35161D0B84FB000A63CC /* ViewController.swift */,
 				C0AC35181D0B84FB000A63CC /* Main.storyboard */,
 				C0AC351B1D0B84FB000A63CC /* Assets.xcassets */,
 				C0AC351D1D0B84FB000A63CC /* LaunchScreen.storyboard */,
 				C0AC35201D0B84FB000A63CC /* Info.plist */,
+				C0FCC17E1D0F600900BA624F /* MGRemote-Bridging-Header.h */,
 			);
 			path = MGRemote;
 			sourceTree = "<group>";
@@ -126,6 +128,14 @@
 				C0AC352B1D0B84FB000A63CC /* Info.plist */,
 			);
 			path = MGRemoteTests;
+			sourceTree = "<group>";
+		};
+		C0FCC17B1D0F375600BA624F /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C0FCC17C1D0F4C1900BA624F /* SimulatorStatusVC.swift */,
+			);
+			name = "View Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -329,7 +339,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C0AC35171D0B84FB000A63CC /* ViewController.swift in Sources */,
+				C0FCC17D1D0F4C1900BA624F /* SimulatorStatusVC.swift in Sources */,
 				C0AC35151D0B84FB000A63CC /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

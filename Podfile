@@ -6,6 +6,8 @@ target 'MGRemote' do
   use_frameworks!
 
   # Pods for MGRemote
+  pod 'AEXML'
+  pod 'MBProgressHUD', '~> 0.9.2'
 
   target 'MGRemoteTests' do
     inherit! :search_paths
