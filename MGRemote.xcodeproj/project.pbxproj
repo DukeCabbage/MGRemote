@@ -14,6 +14,7 @@
 		C0AC351C1D0B84FB000A63CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0AC351B1D0B84FB000A63CC /* Assets.xcassets */; };
 		C0AC351F1D0B84FB000A63CC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0AC351D1D0B84FB000A63CC /* LaunchScreen.storyboard */; };
 		C0AC352A1D0B84FB000A63CC /* MGRemoteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AC35291D0B84FB000A63CC /* MGRemoteTests.swift */; };
+		C0B06B5C1D18B55700B17D17 /* DashboardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B06B5B1D18B55700B17D17 /* DashboardController.swift */; };
 		C0FCC17D1D0F4C1900BA624F /* SimulatorStatusVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FCC17C1D0F4C1900BA624F /* SimulatorStatusVC.swift */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +44,7 @@
 		C0AC35251D0B84FB000A63CC /* MGRemoteTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MGRemoteTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0AC35291D0B84FB000A63CC /* MGRemoteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MGRemoteTests.swift; sourceTree = "<group>"; };
 		C0AC352B1D0B84FB000A63CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C0B06B5B1D18B55700B17D17 /* DashboardController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardController.swift; sourceTree = "<group>"; };
 		C0FCC17C1D0F4C1900BA624F /* SimulatorStatusVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimulatorStatusVC.swift; sourceTree = "<group>"; };
 		C0FCC17E1D0F600900BA624F /* MGRemote-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MGRemote-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -134,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				C0FCC17C1D0F4C1900BA624F /* SimulatorStatusVC.swift */,
+				C0B06B5B1D18B55700B17D17 /* DashboardController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -340,6 +343,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0FCC17D1D0F4C1900BA624F /* SimulatorStatusVC.swift in Sources */,
+				C0B06B5C1D18B55700B17D17 /* DashboardController.swift in Sources */,
 				C0AC35151D0B84FB000A63CC /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

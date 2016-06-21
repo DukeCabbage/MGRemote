@@ -1,10 +1,153 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="hTC-g6-x5K">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="K3x-dV-3zz">
+            <objects>
+                <navigationController id="hTC-g6-x5K" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="R8f-BO-wtX">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="zQF-Iz-44B" kind="relationship" relationship="rootViewController" id="EKh-vr-PDW"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tzu-MX-lxP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-400" y="355"/>
+        </scene>
+        <!--Dashboard-->
+        <scene sceneID="0PL-xf-rxO">
+            <objects>
+                <viewController id="zQF-Iz-44B" customClass="DashboardController" customModule="MGRemote" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Kpu-aA-Gb9"/>
+                        <viewControllerLayoutGuide type="bottom" id="zcE-lr-lvE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="WE6-Am-9KA">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TPu-cI-gCg">
+                                <rect key="frame" x="40" y="84" width="520" height="121"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NM9-yk-hy6" userLabel="blockUrl">
+                                        <rect key="frame" x="0.0" y="0.0" width="520" height="50"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="http:0.0.0.0:8080/Service.asmx" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vkg-PL-bTC" userLabel="tvCurrentUrl">
+                                                <rect key="frame" x="0.0" y="28" width="204" height="17"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B8H-01-zI0">
+                                                <rect key="frame" x="463" y="22" width="53" height="30"/>
+                                                <state key="normal" title="Change"/>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current url:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="81v-vo-UDf" userLabel="tvCurrentUrlLable">
+                                                <rect key="frame" x="0.0" y="0.0" width="83" height="20"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="81v-vo-UDf" firstAttribute="top" secondItem="NM9-yk-hy6" secondAttribute="top" id="9fV-35-tG4"/>
+                                            <constraint firstItem="B8H-01-zI0" firstAttribute="centerY" secondItem="Vkg-PL-bTC" secondAttribute="centerY" id="Gmq-k3-lbz"/>
+                                            <constraint firstItem="81v-vo-UDf" firstAttribute="leading" secondItem="NM9-yk-hy6" secondAttribute="leading" id="Nsc-mm-WZ3"/>
+                                            <constraint firstAttribute="bottom" secondItem="Vkg-PL-bTC" secondAttribute="bottom" constant="5" id="XrA-PT-vyq"/>
+                                            <constraint firstItem="Vkg-PL-bTC" firstAttribute="top" secondItem="81v-vo-UDf" secondAttribute="bottom" constant="8" id="et4-BB-cdi"/>
+                                            <constraint firstItem="Vkg-PL-bTC" firstAttribute="leading" secondItem="NM9-yk-hy6" secondAttribute="leading" id="wy4-LO-qjX"/>
+                                            <constraint firstAttribute="trailing" secondItem="B8H-01-zI0" secondAttribute="trailing" constant="4" id="yrG-qn-3Kw"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t7Z-9E-ahW" userLabel="blockSimulator">
+                                        <rect key="frame" x="0.0" y="70" width="520" height="51"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Simulator status:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Otc-Je-rGD" userLabel="tvSimulatorStatusLabel">
+                                                <rect key="frame" x="0.0" y="6" width="122" height="20"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XIP-eR-U1b">
+                                                <rect key="frame" x="471" y="0.0" width="51" height="31"/>
+                                            </switch>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Simulator not supported" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5zq-SV-atX" userLabel="tvNoSimulator">
+                                                <rect key="frame" x="0.0" y="30" width="186" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="XIP-eR-U1b" firstAttribute="top" secondItem="t7Z-9E-ahW" secondAttribute="top" id="F1l-ZA-Gpq"/>
+                                            <constraint firstItem="Otc-Je-rGD" firstAttribute="centerY" secondItem="XIP-eR-U1b" secondAttribute="centerY" id="GGF-dh-eEU"/>
+                                            <constraint firstAttribute="bottom" secondItem="XIP-eR-U1b" secondAttribute="bottom" id="OvK-NF-Mjk"/>
+                                            <constraint firstAttribute="trailing" secondItem="XIP-eR-U1b" secondAttribute="trailing" id="WjH-Ud-p03"/>
+                                            <constraint firstAttribute="bottom" secondItem="5zq-SV-atX" secondAttribute="bottom" id="gOn-Hb-6zd"/>
+                                            <constraint firstItem="5zq-SV-atX" firstAttribute="top" secondItem="Otc-Je-rGD" secondAttribute="bottom" constant="4" id="hEh-RG-a5d"/>
+                                            <constraint firstItem="5zq-SV-atX" firstAttribute="leading" secondItem="Otc-Je-rGD" secondAttribute="leading" id="l5m-Hg-L6J"/>
+                                            <constraint firstItem="Otc-Je-rGD" firstAttribute="leading" secondItem="t7Z-9E-ahW" secondAttribute="leading" id="lPE-sD-Aac"/>
+                                        </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="OvK-NF-Mjk"/>
+                                            </mask>
+                                        </variation>
+                                    </view>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Cag-jK-Ak1">
+                                <rect key="frame" x="40" y="285" width="201" height="144"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x1l-Nu-ugb" userLabel="btnSetTripState">
+                                        <rect key="frame" x="0.0" y="0.0" width="89" height="30"/>
+                                        <state key="normal" title="Set trip state"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Rn-hv-Wav" userLabel="btnLateTripNotif">
+                                        <rect key="frame" x="0.0" y="38" width="127" height="30"/>
+                                        <state key="normal" title="Send late trip notif"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fnv-Ga-pt5" userLabel="btnSendMessage">
+                                        <rect key="frame" x="0.0" y="76" width="201" height="30"/>
+                                        <state key="normal" title="Driver to passenger message"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ebq-Vg-Ctg" userLabel="btnSendRedispatch">
+                                        <rect key="frame" x="0.0" y="114" width="154" height="30"/>
+                                        <state key="normal" title="Send re-dispatch notif"/>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Cag-jK-Ak1" firstAttribute="top" secondItem="TPu-cI-gCg" secondAttribute="bottom" constant="80" id="4e4-fz-eMY"/>
+                            <constraint firstItem="Cag-jK-Ak1" firstAttribute="leading" secondItem="TPu-cI-gCg" secondAttribute="leading" id="5qb-Cn-YPF"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="TPu-cI-gCg" secondAttribute="trailing" constant="20" id="Cd2-vP-S7B"/>
+                            <constraint firstItem="TPu-cI-gCg" firstAttribute="top" secondItem="Kpu-aA-Gb9" secondAttribute="bottom" constant="20" id="PFo-TF-rnk"/>
+                            <constraint firstItem="TPu-cI-gCg" firstAttribute="leading" secondItem="WE6-Am-9KA" secondAttribute="leadingMargin" constant="20" id="Zf2-41-AJe"/>
+                            <constraint firstItem="TPu-cI-gCg" firstAttribute="leading" secondItem="Cag-jK-Ak1" secondAttribute="trailing" constant="-254" id="b6b-g2-gY1"/>
+                            <constraint firstItem="TPu-cI-gCg" firstAttribute="centerX" secondItem="WE6-Am-9KA" secondAttribute="centerX" id="gTk-8e-tdp"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="b6b-g2-gY1"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <navigationItem key="navigationItem" title="Dashboard" id="Is5-SD-Pb7"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="K8s-pq-HeD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-400" y="1077"/>
+        </scene>
         <!--Simulator StatusVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -17,7 +160,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="n2W-C8-Hsq">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="n2W-C8-Hsq">
                                 <rect key="frame" x="237" y="220" width="126" height="59"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Simulator Status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HVI-84-dcE">
@@ -26,7 +169,7 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E4s-Zt-eph">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E4s-Zt-eph">
                                         <rect key="frame" x="26" y="29" width="75" height="30"/>
                                         <state key="normal" title="Is running?"/>
                                         <connections>
@@ -42,13 +185,14 @@
                             <constraint firstItem="n2W-C8-Hsq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="RBx-oU-g8a"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="eds-KQ-Mlh"/>
                     <connections>
                         <outlet property="labelSimulatorStatus" destination="HVI-84-dcE" id="xcK-ep-FBF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="44" y="583"/>
+            <point key="canvasLocation" x="426" y="437"/>
         </scene>
     </scenes>
 </document>

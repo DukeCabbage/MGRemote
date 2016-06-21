@@ -19,9 +19,7 @@ class SimulatorStatusVC: UIViewController {
         }
     }
     var currentElement: String?
-//    var mutableData: NSMutableData = NSMutableData()
-    
-    // Session way
+
     let defaultSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
     var dataTask: NSURLSessionDataTask?
     
@@ -30,19 +28,9 @@ class SimulatorStatusVC: UIViewController {
 
     // MARK: Actions
     @IBAction func isSimulatorRunning(sender: UIButton) {
-        print("buton hit");
         let request = buildSoapRequest()
-        print(request.xmlString)
-        sendRequest2(request.xmlString)
-        
-//        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-//        hud.labelText = "Loading..."
-//        
-//        let time = dispatch_time(dispatch_time_t(DISPATCH_TIME_NOW), 2 * Int64(NSEC_PER_SEC))
-//        dispatch_after(time, dispatch_get_main_queue()) {
-//            self.labelSimulatorStatus.text = "This is the result"
-//            MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
-//        }
+        print(request.xmlString + "\n")
+        sendRequest(request.xmlString)
     }
     
     // MARK: UIViewController
@@ -66,24 +54,7 @@ class SimulatorStatusVC: UIViewController {
         return soapRequest
     }
     
-//    func sendRequest(requestMsg: String) {
-//        let theRequest = NSMutableURLRequest(URL: url!)
-//        let msgLength = requestMsg.characters.count
-//        theRequest.addValue("text/xml; charset=utf-8", forHTTPHeaderField: "Content-Type")
-//        theRequest.addValue(String(msgLength), forHTTPHeaderField: "Content-Length")
-//        theRequest.addValue("http://iis.com.dds.osp.itaxi.interface/IsSimulationRunning", forHTTPHeaderField:"SOAPAction")
-//        theRequest.HTTPMethod = "POST"
-//        theRequest.HTTPBody = requestMsg.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false) // or false
-//        
-//        let connection = NSURLConnection(request: theRequest, delegate: self, startImmediately: true)
-//        connection!.start()
-//        
-//        if (connection == true) {
-//            var mutableData : Void = NSMutableData.initialize()
-//        }
-//    }
-    
-    func sendRequest2(requestMsg: String) {
+    func sendRequest(requestMsg: String) {
         if dataTask != nil {
             dataTask?.cancel()
         }
@@ -96,63 +67,64 @@ class SimulatorStatusVC: UIViewController {
         theRequest.HTTPMethod = "POST"
         theRequest.HTTPBody = requestMsg.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false) // or false
         
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        showNetworkIndicator()
         dataTask = defaultSession.dataTaskWithRequest(theRequest, completionHandler: { (data, response, error) in
             dispatch_async(dispatch_get_main_queue()) {
-                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                self.hideNetworkIndicator()
             }
             
             if let error = error {
                 print(error.localizedDescription)
             } else if let httpResponse = response as? NSHTTPURLResponse {
-                print(httpResponse)
+//                print(httpResponse)
                 if httpResponse.statusCode == 200 {
-                    let meow = NSString(data: data!, encoding: NSUTF8StringEncoding)
-                    print(meow)
+//                    let meow = NSString(data: data!, encoding: NSUTF8StringEncoding)
+//                    print(meow)
                     
-                    let xmlParser = NSXMLParser(data: data!)
-                    xmlParser.delegate = self
-                    xmlParser.parse()
-                    xmlParser.shouldResolveExternalEntities = true
+                    let xmlData = self.parseXMLData(data)!
+                    print(xmlData.xmlString + "\n")
+
+                    guard case let envelope = xmlData["soap:Envelope"] where envelope.error == nil,
+                    case let body = envelope["soap:Body"] where body.error == nil else {
+                        print("Error: wrong format of soap object")
+                        return
+                    }
+                    
+                    guard case let response = body["IsSimulationRunningResponse"] where response.error == nil else {
+                        print("Error: no matching response found")
+                        return
+                    }
+                    
+                    print(response["IsSimulationRunningResult"].stringValue)
+                    self.labelSimulatorStatus.text = response["IsSimulationRunningResult"].stringValue
                 }
             }
         })
         
         dataTask?.resume()
     }
-}
-
-extension SimulatorStatusVC: NSXMLParserDelegate {
-    func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributesDict: [String : String]) {
-        currentElement = elementName
+    
+    func parseXMLData(data : NSData?) -> AEXMLDocument? {
+        do {
+            let xmlDoc = try AEXMLDocument(xmlData: data!)
+            return xmlDoc
+        } catch {
+            print("\(error)")
+            return nil
+        }
     }
     
-    func parser(parser: NSXMLParser, foundCharacters string: String) {
-        print(currentElement)
+    func showNetworkIndicator() {
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        hud.labelText = "Loading..."
+    }
+    
+    func hideNetworkIndicator() {
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+        MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
     }
 }
-
-//extension SimulatorStatusVC: NSURLConnectionDelegate {
-//    func connection(connection: NSURLConnection!, didReceiveResponse response: NSURLResponse!) {
-//        print(response)
-//        mutableData.length = 0;
-//    }
-//    
-//    func connection(connection: NSURLConnection!, didReceiveData data: NSData!) {
-//        mutableData.appendData(data)
-//    }
-//    
-//    func connectionDidFinishLoading(connection: NSURLConnection!) {
-//        let response = NSString(data: mutableData, encoding: NSUTF8StringEncoding)
-//        print(response)
-//        
-//        let xmlParser = NSXMLParser(data: mutableData)
-//        xmlParser.delegate = self
-//        xmlParser.parse()
-//        xmlParser.shouldResolveExternalEntities = true
-//    }
-//}
-
 
 
 
