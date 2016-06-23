@@ -23,8 +23,16 @@ class DashboardController: UIViewController {
     // MARK: Actions
     @IBAction func buttonOnClick(sender: UIButton) {
         if let identifier = sender.accessibilityIdentifier {
-            print(identifier)
-            self.performSegueWithIdentifier("showPicker", sender: self)
+            print(identifier + "on click")
+            switch identifier {
+            case "btnChangeUrl":
+                self.performSegueWithIdentifier("showPicker", sender: self)
+            case "btnSetTripState":
+                self.performSegueWithIdentifier("setTripState", sender: self)
+                break
+            default: break
+            }
+            
         }
     }
     
@@ -38,9 +46,7 @@ class DashboardController: UIViewController {
     
     // MARK: Navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "showPicker" {
-            print(LOGTAG + "prepareForSegue")
-        }
+        print(LOGTAG + "prepareForSegue \(segue.identifier)")
     }
     
     @IBAction func unwindToDashboard(sender: UIStoryboardSegue) {
