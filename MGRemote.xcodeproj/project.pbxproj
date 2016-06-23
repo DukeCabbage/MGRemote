@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0DF1C0459984B852F7928CDC /* Pods_MGRemote.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 048AF62A56F3003D444A141C /* Pods_MGRemote.framework */; };
 		692D712E0031C1C0E023C565 /* Pods_MGRemoteTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD2FFF12E1AD3225B98C0400 /* Pods_MGRemoteTests.framework */; };
+		C05E51CF1D1C69E40029A331 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05E51CE1D1C69E40029A331 /* Utils.swift */; };
+		C05E51D11D1C6C260029A331 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05E51D01D1C6C260029A331 /* NetworkManager.swift */; };
 		C0AC35151D0B84FB000A63CC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AC35141D0B84FB000A63CC /* AppDelegate.swift */; };
 		C0AC351A1D0B84FB000A63CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0AC35181D0B84FB000A63CC /* Main.storyboard */; };
 		C0AC351C1D0B84FB000A63CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0AC351B1D0B84FB000A63CC /* Assets.xcassets */; };
@@ -18,7 +20,6 @@
 		C0B06B5F1D19C86900B17D17 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B06B5E1D19C86900B17D17 /* Config.swift */; };
 		C0B06B611D19F18800B17D17 /* EndpointPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B06B601D19F18800B17D17 /* EndpointPickerController.swift */; };
 		C0B06B631D1B507E00B17D17 /* SetTripStateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B06B621D1B507E00B17D17 /* SetTripStateViewController.swift */; };
-		C0FCC17D1D0F4C1900BA624F /* SimulatorStatusVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FCC17C1D0F4C1900BA624F /* SimulatorStatusVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +39,8 @@
 		48EB6A623730BCF4C06E2FAF /* Pods-MGRemote.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MGRemote.release.xcconfig"; path = "Pods/Target Support Files/Pods-MGRemote/Pods-MGRemote.release.xcconfig"; sourceTree = "<group>"; };
 		4AB8E375C478034A86BAC1F6 /* Pods-MGRemoteTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MGRemoteTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MGRemoteTests/Pods-MGRemoteTests.debug.xcconfig"; sourceTree = "<group>"; };
 		AD2FFF12E1AD3225B98C0400 /* Pods_MGRemoteTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MGRemoteTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C05E51CE1D1C69E40029A331 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		C05E51D01D1C6C260029A331 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		C0AC35111D0B84FB000A63CC /* MGRemote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MGRemote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0AC35141D0B84FB000A63CC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C0AC35191D0B84FB000A63CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -51,7 +54,6 @@
 		C0B06B5E1D19C86900B17D17 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		C0B06B601D19F18800B17D17 /* EndpointPickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointPickerController.swift; sourceTree = "<group>"; };
 		C0B06B621D1B507E00B17D17 /* SetTripStateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetTripStateViewController.swift; sourceTree = "<group>"; };
-		C0FCC17C1D0F4C1900BA624F /* SimulatorStatusVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimulatorStatusVC.swift; sourceTree = "<group>"; };
 		C0FCC17E1D0F600900BA624F /* MGRemote-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MGRemote-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -143,6 +145,8 @@
 			isa = PBXGroup;
 			children = (
 				C0B06B5E1D19C86900B17D17 /* Config.swift */,
+				C05E51CE1D1C69E40029A331 /* Utils.swift */,
+				C05E51D01D1C6C260029A331 /* NetworkManager.swift */,
 			);
 			name = Network;
 			sourceTree = "<group>";
@@ -150,7 +154,6 @@
 		C0FCC17B1D0F375600BA624F /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				C0FCC17C1D0F4C1900BA624F /* SimulatorStatusVC.swift */,
 				C0B06B5B1D18B55700B17D17 /* DashboardController.swift */,
 				C0B06B601D19F18800B17D17 /* EndpointPickerController.swift */,
 				C0B06B621D1B507E00B17D17 /* SetTripStateViewController.swift */,
@@ -362,9 +365,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C0FCC17D1D0F4C1900BA624F /* SimulatorStatusVC.swift in Sources */,
 				C0B06B5F1D19C86900B17D17 /* Config.swift in Sources */,
 				C0B06B5C1D18B55700B17D17 /* DashboardController.swift in Sources */,
+				C05E51CF1D1C69E40029A331 /* Utils.swift in Sources */,
+				C05E51D11D1C6C260029A331 /* NetworkManager.swift in Sources */,
 				C0AC35151D0B84FB000A63CC /* AppDelegate.swift in Sources */,
 				C0B06B631D1B507E00B17D17 /* SetTripStateViewController.swift in Sources */,
 				C0B06B611D19F18800B17D17 /* EndpointPickerController.swift in Sources */,

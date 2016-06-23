@@ -14,8 +14,9 @@ class Config {
     enum Endpoint : String {
         case DEBUG = "http://192.168.50.160:78/Service.asmx"
         case QA = "http://192.168.50.144:90/Service.asmx"
+        case DEMO = "https://mg.digital-dispatch.com:444/Service.asmx"
         
-        static let allValues = [DEBUG, QA]
+        static let allValues = [DEBUG, QA, DEMO]
     }
     
     static func getUrl() -> String {
