@@ -18,7 +18,7 @@ class Utils {
         }
     }
     
-    static func hideNetworkIndicator(rootView : UIView) {
+    static func hideNetworkIndicator(rootView : UIView?) {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         MBProgressHUD.hideAllHUDsForView(rootView, animated: true)
     }

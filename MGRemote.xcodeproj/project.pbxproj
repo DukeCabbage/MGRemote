@@ -97,6 +97,23 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		C05E51D21D1DF93A0029A331 /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				C0B06B5B1D18B55700B17D17 /* DashboardController.swift */,
+				C0B06B601D19F18800B17D17 /* EndpointPickerController.swift */,
+			);
+			name = Dashboard;
+			sourceTree = "<group>";
+		};
+		C05E51D31D1DF95B0029A331 /* SetTripState */ = {
+			isa = PBXGroup;
+			children = (
+				C0B06B621D1B507E00B17D17 /* SetTripStateViewController.swift */,
+			);
+			name = SetTripState;
+			sourceTree = "<group>";
+		};
 		C0AC35081D0B84FB000A63CC = {
 			isa = PBXGroup;
 			children = (
@@ -120,6 +137,8 @@
 		C0AC35131D0B84FB000A63CC /* MGRemote */ = {
 			isa = PBXGroup;
 			children = (
+				C05E51D31D1DF95B0029A331 /* SetTripState */,
+				C05E51D21D1DF93A0029A331 /* Dashboard */,
 				C0B06B5D1D19C83F00B17D17 /* Network */,
 				C0FCC17B1D0F375600BA624F /* View Controllers */,
 				C0AC35141D0B84FB000A63CC /* AppDelegate.swift */,
@@ -154,9 +173,6 @@
 		C0FCC17B1D0F375600BA624F /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				C0B06B5B1D18B55700B17D17 /* DashboardController.swift */,
-				C0B06B601D19F18800B17D17 /* EndpointPickerController.swift */,
-				C0B06B621D1B507E00B17D17 /* SetTripStateViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";

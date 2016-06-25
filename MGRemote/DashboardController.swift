@@ -13,7 +13,6 @@ class DashboardController: UIViewController {
     
     // MARK: Properties
     private let LOGTAG : String = "DashboardController: "
-    var dataTask: NSURLSessionDataTask?
     
     // MARK: Outlets
     @IBOutlet weak var tvCurrentUrl: UILabel!
@@ -37,10 +36,11 @@ class DashboardController: UIViewController {
     }
     
     @IBAction func toggleSimulator(sender: UISwitch) {
-        if sender.on {
-            tvNoSimulator.text = "Simulator is on"
+        if let mRequest = NetworkManager.mInstance.buildSimulatorRequest(sender.on ? "turnOff" : "turnOn") {
+            Utils.showNetworkIndicator(self.view, withLoadingView: true)
+            NetworkManager.mInstance.sendRequest(mRequest, completionHandler: simulatorStatusCallback)
         } else {
-            tvNoSimulator.text = "Simulator is off"
+            disableSimulationSwitch("Error sending request")
         }
     }
     
@@ -71,64 +71,66 @@ class DashboardController: UIViewController {
         print(LOGTAG + "refreshData")
         tvCurrentUrl.text = Config.getUrl()
         
-        if dataTask != nil {
-            dataTask?.cancel()
-        }
-        
-        if let mRequest = NetworkManager.mInstance.sendSimulatorRequest("checkState") {
+        if let mRequest = NetworkManager.mInstance.buildSimulatorRequest("checkState") {
             Utils.showNetworkIndicator(self.view, withLoadingView: true)
-            dataTask = NetworkManager.mInstance.defaultSession.dataTaskWithRequest(mRequest, completionHandler: { (data, response, error) in
-                dispatch_async(dispatch_get_main_queue()) {
-                    Utils.hideNetworkIndicator(self.view)
-                    
-                    if let error = error {
-                        print(error.localizedDescription)
-                        self.disableSimulationSwitch(error.localizedDescription)
-                    } else if let httpResponse = response as? NSHTTPURLResponse {
-                        // print(httpResponse)
-                        if httpResponse.statusCode == 200 {
-                            let xmlData = NetworkManager.mInstance.parseXMLData(data)!
-                            print(xmlData.xmlString + "\n")
-                            
-                            guard case let envelope = xmlData["soap:Envelope"] where envelope.error == nil,
-                                case let body = envelope["soap:Body"] where body.error == nil else {
-                                    print("Error: wrong format of soap object")
-                                    self.disableSimulationSwitch(nil)
-                                    return
-                            }
-                            
-                            guard case let response = body["IsSimulationRunningResponse"] where response.error == nil else {
-                                print("Error: no matching response found")
-                                self.disableSimulationSwitch(nil)
-                                return
-                            }
-                            
-                            let result = response["IsSimulationRunningResult"].stringValue
-                            self.tvNoSimulator.text = result
-                            
-                            if result == "Simulation is running" {
-                                self.switchSimulator.enabled = true
-                                self.switchSimulator.setOn(true, animated: true)
-                            } else if result == "Simulation is not running" {
-                                self.switchSimulator.enabled = true
-                                self.switchSimulator.setOn(false, animated: true)
-                            } else  {
-                                self.disableSimulationSwitch("Simulation not supported")
-                            }
-                        }
-                    }
-                }
-            })
-            
-            dataTask?.resume()
+            NetworkManager.mInstance.sendRequest(mRequest, completionHandler: simulatorStatusCallback)
         } else {
             disableSimulationSwitch("Error sending request")
         }
     }
     
-    func disableSimulationSwitch(withMessage : String?) {
+    func toggleSimulatorSwitch(on : Bool, withMessage : String? = nil) {
+        switchSimulator.enabled = true
+        switchSimulator.setOn(on, animated: true)
+        tvNoSimulator.text = withMessage ?? (on ? "Simulator is turned on" : "Simulator is turned off")
+    }
+    
+    func disableSimulationSwitch(withMessage : String? = nil) {
         switchSimulator.setOn(false, animated: false)
         switchSimulator.enabled = false
         tvNoSimulator.text = withMessage ?? "Network unavailable"
     }
+    
+    lazy var simulatorStatusCallback: (NSData?, NSURLResponse?, NSError?) -> Void = {[weak self] (data : NSData?, response : NSURLResponse?, error : NSError?) -> Void in
+        dispatch_async(dispatch_get_main_queue()) {
+            Utils.hideNetworkIndicator(self?.view)
+            
+            if let error = error {
+                print(error.localizedDescription)
+                self?.disableSimulationSwitch(error.localizedDescription)
+            } else if let httpResponse = response as? NSHTTPURLResponse {
+                if httpResponse.statusCode == 200 {
+                    let body = NetworkManager.mInstance.parseXMLBody(data)
+                    
+                    guard case let response = body?.children[0].children[0] where response?.error == nil else {
+                        print("Error: no matching response found")
+                        self?.disableSimulationSwitch()
+                        return
+                    }
+                    
+                    let result = response?.stringValue
+                    
+                    if result == "Simulation is running" {
+                        self?.toggleSimulatorSwitch(true, withMessage: result)
+                    } else if result == "Simulation is not running" {
+                        self?.toggleSimulatorSwitch(false, withMessage: result)
+                    } else  {
+                        self?.disableSimulationSwitch(result)
+                    }
+                }
+            }
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+

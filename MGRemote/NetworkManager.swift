@@ -11,12 +11,69 @@ import AEXML
 
 class NetworkManager {
     
+    // MARK: Properties
+    private let LOGTAG : String = "NetworkManager: "
     static let mInstance = NetworkManager()
-    let defaultSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
     
-    private init() {}
+    let defaultSession : NSURLSession!
+    var simulatorDataTask: NSURLSessionDataTask?
     
-    func sendSimulatorRequest(option : String) -> NSMutableURLRequest? {
+    private init() {
+        let defaultConfig = NSURLSessionConfiguration.defaultSessionConfiguration()
+        defaultConfig.timeoutIntervalForRequest = 30
+        print(LOGTAG + "timeout for request " + "\(defaultConfig.timeoutIntervalForRequest)")
+        print(LOGTAG + "timeout for resource " + "\(defaultConfig.timeoutIntervalForResource)")
+        defaultSession = NSURLSession(configuration: defaultConfig)
+    }
+    
+    // MARK: Common utilities
+    private func buildEmptySoapBody() -> AEXMLDocument {
+        let soapRequest = AEXMLDocument()
+        let attributes = ["xmlns:xsi" : "http://www.w3.org/2001/XMLSchema-instance", "xmlns:xsd" : "http://www.w3.org/2001/XMLSchema", "xmlns:soap" : "http://schemas.xmlsoap.org/soap/envelope/"]
+        let envelope = soapRequest.addChild(name: "soap:Envelope", attributes: attributes)
+        envelope.addChild(name: "soap:Body")
+        return soapRequest
+    }
+    
+    func sendRequest(urlRequest: NSMutableURLRequest, completionHandler : ((NSData?, NSURLResponse?, NSError?) -> Void)? = nil) {
+        simulatorDataTask?.cancel()
+        if completionHandler == nil {
+            simulatorDataTask = defaultSession.dataTaskWithRequest(urlRequest)
+        } else {
+            simulatorDataTask = defaultSession.dataTaskWithRequest(urlRequest, completionHandler: completionHandler!)
+        }
+        
+        simulatorDataTask!.resume()
+    }
+    
+    private func parseXMLData(data: NSData?) -> AEXMLDocument? {
+        do {
+            let xmlDoc = try AEXMLDocument(xmlData: data!)
+            print(xmlDoc.xmlString)
+            return xmlDoc
+        } catch {
+            print("\(error)")
+            return nil
+        }
+    }
+    
+    private func parseXMLBody(doc: AEXMLDocument?) -> AEXMLElement? {
+        guard case let envelope = doc?["soap:Envelope"] where envelope?.error == nil,
+            case let body = envelope?["soap:Body"] where body?.error == nil else {
+                print("Error: wrong format, could not parse body tag")
+                return nil
+        }
+        return body
+    }
+    
+    func parseXMLBody(data: NSData?) -> AEXMLElement? {
+        return parseXMLBody(parseXMLData(data))
+    }
+}
+
+// MARK: Simulator
+extension NetworkManager {
+    func buildSimulatorRequest(option : String) -> NSMutableURLRequest? {
         print("Simulator request: " + option)
         // Switch option
         var requestName : String
@@ -54,24 +111,6 @@ class NetworkManager {
             theRequest.HTTPBody = soapRequest.xmlString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
             return theRequest
         } else {
-            return nil
-        }
-    }
-    
-    private func buildEmptySoapBody() -> AEXMLDocument {
-        let soapRequest = AEXMLDocument()
-        let attributes = ["xmlns:xsi" : "http://www.w3.org/2001/XMLSchema-instance", "xmlns:xsd" : "http://www.w3.org/2001/XMLSchema", "xmlns:soap" : "http://schemas.xmlsoap.org/soap/envelope/"]
-        let envelope = soapRequest.addChild(name: "soap:Envelope", attributes: attributes)
-        envelope.addChild(name: "soap:Body")
-        return soapRequest
-    }
-    
-    func parseXMLData(data : NSData?) -> AEXMLDocument? {
-        do {
-            let xmlDoc = try AEXMLDocument(xmlData: data!)
-            return xmlDoc
-        } catch {
-            print("\(error)")
             return nil
         }
     }
