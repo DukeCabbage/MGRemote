@@ -17,6 +17,7 @@ class NetworkManager {
     
     let defaultSession : NSURLSession!
     var simulatorDataTask: NSURLSessionDataTask?
+    var setTripStateDataTask: NSURLSessionDataTask?
     
     private init() {
         let defaultConfig = NSURLSessionConfiguration.defaultSessionConfiguration()
@@ -35,7 +36,7 @@ class NetworkManager {
         return soapRequest
     }
     
-    func sendRequest(urlRequest: NSMutableURLRequest, completionHandler : ((NSData?, NSURLResponse?, NSError?) -> Void)? = nil) {
+    func sendSimulatorControlRequest(urlRequest: NSMutableURLRequest, completionHandler : ((NSData?, NSURLResponse?, NSError?) -> Void)? = nil) {
         simulatorDataTask?.cancel()
         if completionHandler == nil {
             simulatorDataTask = defaultSession.dataTaskWithRequest(urlRequest)
@@ -44,6 +45,17 @@ class NetworkManager {
         }
         
         simulatorDataTask!.resume()
+    }
+    
+    func sendSetTripRequest(urlRequest: NSMutableURLRequest, completionHandler : ((NSData?, NSURLResponse?, NSError?) -> Void)?) {
+        setTripStateDataTask?.cancel()
+        if completionHandler == nil {
+            setTripStateDataTask = defaultSession.dataTaskWithRequest(urlRequest)
+        } else {
+            setTripStateDataTask = defaultSession.dataTaskWithRequest(urlRequest, completionHandler: completionHandler!)
+        }
+        
+        setTripStateDataTask!.resume()
     }
     
     private func parseXMLData(data: NSData?) -> AEXMLDocument? {
@@ -71,7 +83,7 @@ class NetworkManager {
     }
 }
 
-// MARK: Simulator
+// MARK: Simulator control
 extension NetworkManager {
     func buildSimulatorRequest(option : String) -> NSMutableURLRequest? {
         print("Simulator request: " + option)
@@ -97,9 +109,9 @@ extension NetworkManager {
         
         // Build body
         let soapRequest = buildEmptySoapBody()
-        print(soapRequest.xmlString)
         let body = soapRequest["soap:Envelope"]["soap:Body"]
         body.addChild(name: requestName, attributes: ["xmlns" : "http://iis.com.dds.osp.itaxi.interface/"])
+        print(soapRequest.xmlString)
         
         // Build header
         if let url = NSURL(string: Config.getUrl()) {
@@ -115,3 +127,53 @@ extension NetworkManager {
         }
     }
 }
+
+// MARK: Set trip state
+extension NetworkManager {
+    func buildSetTripStateRequest(options : [String : String]) -> NSMutableURLRequest? {
+        for (key, value) in options {
+            print("\(key): \(value)")
+        }
+        
+        let requestName : String = "SetTripState"
+        let action : String = "http://iis.com.dds.osp.itaxi.interface/SetTripState"
+        
+        // Build body
+        let soapRequest = buildEmptySoapBody()
+        let body = soapRequest["soap:Envelope"]["soap:Body"]
+        let setTripState = body.addChild(name: requestName, attributes: ["xmlns" : "http://iis.com.dds.osp.itaxi.interface/"])
+        setTripState.addChild(name: "jobId", value: options["jobId"])
+        setTripState.addChild(name: "destId", value: options["destId"])
+        setTripState.addChild(name: "newState", value: options["newState"])
+        setTripState.addChild(name: "amount", value: options["amount"])
+        setTripState.addChild(name: "meterFare", value: options["meterFare"])
+        setTripState.addChild(name: "expense", value: options["expense"])
+        print(soapRequest.xmlString)
+        
+        // Build header
+        if let url = NSURL(string: Config.getUrl()) {
+            let theRequest = NSMutableURLRequest(URL: url)
+            theRequest.addValue("text/xml; charset=utf-8", forHTTPHeaderField: "Content-Type")
+            theRequest.addValue(String(soapRequest.xmlString.characters.count), forHTTPHeaderField: "Content-Length")
+            theRequest.addValue(action, forHTTPHeaderField:"SOAPAction")
+            theRequest.HTTPMethod = "POST"
+            theRequest.HTTPBody = soapRequest.xmlString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
+            return theRequest
+        } else {
+            return nil
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

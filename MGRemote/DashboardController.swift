@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import AEXML
 
 class DashboardController: UIViewController {
     
@@ -38,9 +37,9 @@ class DashboardController: UIViewController {
     @IBAction func toggleSimulator(sender: UISwitch) {
         if let mRequest = NetworkManager.mInstance.buildSimulatorRequest(sender.on ? "turnOff" : "turnOn") {
             Utils.showNetworkIndicator(self.view, withLoadingView: true)
-            NetworkManager.mInstance.sendRequest(mRequest, completionHandler: simulatorStatusCallback)
+            NetworkManager.mInstance.sendSimulatorControlRequest(mRequest, completionHandler: simulatorStatusCallback)
         } else {
-            disableSimulationSwitch("Error sending request")
+            disableSimulationSwitch("Error building request")
         }
     }
     
@@ -68,15 +67,15 @@ class DashboardController: UIViewController {
     }
     
     func refreshAfterEndpointChanged() {
-        print(LOGTAG + "refreshData")
+        print(LOGTAG + "refreshData" + "(disabled)")
         tvCurrentUrl.text = Config.getUrl()
-        
-        if let mRequest = NetworkManager.mInstance.buildSimulatorRequest("checkState") {
-            Utils.showNetworkIndicator(self.view, withLoadingView: true)
-            NetworkManager.mInstance.sendRequest(mRequest, completionHandler: simulatorStatusCallback)
-        } else {
-            disableSimulationSwitch("Error sending request")
-        }
+//
+//        if let mRequest = NetworkManager.mInstance.buildSimulatorRequest("checkState") {
+//            Utils.showNetworkIndicator(self.view, withLoadingView: true)
+//            NetworkManager.mInstance.sendSimulatorControlRequest(mRequest, completionHandler: simulatorStatusCallback)
+//        } else {
+//            disableSimulationSwitch("Error sending request")
+//        }
     }
     
     func toggleSimulatorSwitch(on : Bool, withMessage : String? = nil) {
